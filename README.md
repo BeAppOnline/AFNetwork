@@ -28,5 +28,5 @@ let package = Package(
     ]
 )
 ```
-And then import wherever needed: import `AFNetwork`
+And then import wherever needed: `import AFNetwork`
 
