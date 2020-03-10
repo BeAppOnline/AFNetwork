@@ -14,7 +14,7 @@ public final class DefaultNetworkService {
     private let sessionManager: NetworkSessionManager
     private let logger: NetworkErrorLogger
     
-    public init(config: NetworkConfigurable, sessionManager: NetworkSessionManager, logger: NetworkErrorLogger = DefaultNetworkErrorLogger()) {
+    public init(config: NetworkConfigurable, sessionManager: NetworkSessionManager = DefaultNetworkSessionManager(), logger: NetworkErrorLogger = DefaultNetworkErrorLogger()) {
         self.config = config
         self.sessionManager = sessionManager
         self.logger = logger
