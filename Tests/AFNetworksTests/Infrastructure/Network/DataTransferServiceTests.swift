@@ -29,7 +29,7 @@ class DataTransferServiceTests: XCTestCase {
                                                                                                              data: responseData,
                                                                                                              error: nil))
         
-        let sut = DefaultDataTransferService(networkService: networkService)
+        let sut = DefaultDataTransferService(with: networkService)
         //when
         _ = sut.request(with: Endpoint<MockModel>(path: "http://mock.endpoint.com", method: .get)) { result in
             do {
@@ -54,7 +54,7 @@ class DataTransferServiceTests: XCTestCase {
                                                                                                              data: responseData,
                                                                                                              error: nil))
         
-        let sut = DefaultDataTransferService(networkService: networkService)
+        let sut = DefaultDataTransferService(with: networkService)
         //when
         _ = sut.request(with: Endpoint<MockModel>(path: "http://mock.endpoint.com", method: .get)) { result in
             do {
@@ -82,7 +82,7 @@ class DataTransferServiceTests: XCTestCase {
                                                                                                              data: responseData,
                                                                                                              error: DataTransferErrorMock.someError))
         
-        let sut = DefaultDataTransferService(networkService: networkService)
+        let sut = DefaultDataTransferService(with: networkService)
         //when
         _ = sut.request(with: Endpoint<MockModel>(path: "http://mock.endpoint.com", method: .get)) { result in
             do {
@@ -114,7 +114,7 @@ class DataTransferServiceTests: XCTestCase {
                                                                                                              data: nil,
                                                                                                              error: nil))
         
-        let sut = DefaultDataTransferService(networkService: networkService)
+        let sut = DefaultDataTransferService(with: networkService )
         //when
         _ = sut.request(with: Endpoint<MockModel>(path: "http://mock.endpoint.com", method: .get)) { result in
             do {

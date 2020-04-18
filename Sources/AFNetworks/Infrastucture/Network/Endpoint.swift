@@ -111,9 +111,13 @@ extension Requestable {
         return urlRequest
     }
     
-    fileprivate func encodeBody(bodyParameters: [String: Any], bodyEncoding: BodyEncoding) -> Data? {
+    fileprivate func encodeBody(bodyParameters: [String: Any], bodyEncoding: BodyEncoding, with options: JSONSerialization.WritingOptions? = nil) -> Data? {
         switch bodyEncoding {
         case .jsonSerializationData:
+            if let option = options {
+                
+                return try? JSONSerialization.data(withJSONObject: bodyParameters, options: option)
+            }
             return try? JSONSerialization.data(withJSONObject: bodyParameters)
         case .stringEncodingAscii:
             return bodyParameters.queryString.data(using: String.Encoding.ascii, allowLossyConversion: true)
