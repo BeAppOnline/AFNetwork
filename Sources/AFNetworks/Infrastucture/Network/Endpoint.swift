@@ -38,6 +38,7 @@ public class Endpoint<R>: ResponseRequestable {
     public var queryParameters: [String : Any]
     public var bodyEncoding: BodyEncoding
     public var responseDecoder: ResponseDecoder
+    public var bodyJsonSerializationOption: JSONSerialization.WritingOptions?
     
     public init(path: String,
          isFullPath: Bool = false,
@@ -46,7 +47,8 @@ public class Endpoint<R>: ResponseRequestable {
          bodyParameters: [String: Any] = [:],
          queryParameters: [String: Any] = [:],
          bodyEncoding: BodyEncoding = .jsonSerializationData,
-         responseDecoder: ResponseDecoder = JSONResponseDecoder()) {
+         responseDecoder: ResponseDecoder = JSONResponseDecoder(),
+         bodyJsonSerializationOption: JSONSerialization.WritingOptions? = nil) {
         self.path = path
         self.isFullPath = isFullPath
         self.method = method
@@ -55,6 +57,7 @@ public class Endpoint<R>: ResponseRequestable {
         self.queryParameters = queryParameters
         self.bodyEncoding = bodyEncoding
         self.responseDecoder = responseDecoder
+        self.bodyJsonSerializationOption = bodyJsonSerializationOption
     }
 }
 
@@ -68,6 +71,7 @@ public protocol Requestable {
     var bodyParameter: [String: Any] { get }
     var queryParameters: [String: Any] { get }
     var bodyEncoding: BodyEncoding { get }
+    var bodyJsonSerializationOption: JSONSerialization.WritingOptions? { get }
     
     func urlRequest(with networkConfig: NetworkConfigurable) throws -> URLRequest
 }
@@ -104,7 +108,7 @@ extension Requestable {
         headerParameter.forEach { allHeaders.updateValue($0.key, forKey: $0.value) }
         
         if !bodyParameter.isEmpty {
-            urlRequest.httpBody = encodeBody(bodyParameters: bodyParameter, bodyEncoding: bodyEncoding)
+            urlRequest.httpBody = encodeBody(bodyParameters: bodyParameter, bodyEncoding: bodyEncoding, with: bodyJsonSerializationOption)
         }
         urlRequest.httpMethod = method.rawValue
         urlRequest.allHTTPHeaderFields = allHeaders

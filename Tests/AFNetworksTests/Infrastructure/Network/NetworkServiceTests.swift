@@ -20,6 +20,7 @@ class NetworkServiceTests: XCTestCase {
         var bodyParameter: [String : Any] = [:]
         var queryParameters: [String : Any] = [:]
         var bodyEncoding: BodyEncoding = .stringEncodingAscii
+        var bodyJsonSerializationOption: JSONSerialization.WritingOptions?
         
         init(path: String, method: HTTPMethod) {
             self.path = path
